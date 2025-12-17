@@ -24,4 +24,4 @@ private:
     QString m_registeredLogin;
 };
 
-#endif // REGISTERDIALOG_H
+#endif 
