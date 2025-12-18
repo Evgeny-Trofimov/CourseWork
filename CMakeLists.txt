@@ -12,7 +12,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets Sql)
 find_package(OpenSSL REQUIRED)
 find_package(SQLite3 REQUIRED)
 
-# Исходники (убедитесь, что MainController.cpp отсутствует!)
+# Исходники 
 set(SOURCES
     src/main.cpp
     src/Database.cpp
@@ -20,7 +20,6 @@ set(SOURCES
     src/RegisterDialog.cpp
     src/MainWindow.cpp
     src/ThreatForm.cpp
-    # НЕ добавляйте MainController.cpp!
 )
 
 # Исполняемый файл
