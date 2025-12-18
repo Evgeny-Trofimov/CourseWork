@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "User.h"
+#include <QTableView>
+#include <QMenuBar>
+#include <QStatusBar>
+#include <QMessageBox>
+#include <QSqlTableModel>
 #include "Database.h"
-
-class QTableView;
+#include "ThreatForm.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -26,6 +29,7 @@ private:
     User m_user;
     Database m_db;
     QTableView* m_tableView;
+    QSqlTableModel* m_model;
 };
 
-#endif 
+#endif // MAINWINDOW_H
