@@ -25,4 +25,4 @@ private:
     QTextEdit* m_descEdit;
 };
 
-#endif 
+#endif // THREATFORM_H
