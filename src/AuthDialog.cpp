@@ -1,10 +1,11 @@
-#include "AuthDialog.h"
-#include "RegisterDialog.h"
+#include <QLineEdit>
+#include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
 #include <QMessageBox>
+#include "AuthDialog.h"
+#include "RegisterDialog.h"
 
 AuthDialog::AuthDialog(QWidget *parent)
     : QDialog(parent) {
@@ -12,6 +13,7 @@ AuthDialog::AuthDialog(QWidget *parent)
     setFixedSize(300, 200);
 
     auto layout = new QVBoxLayout(this);
+
     layout->addWidget(new QLabel("Логин:"));
     m_loginEdit = new QLineEdit;
     layout->addWidget(m_loginEdit);
@@ -54,7 +56,8 @@ void AuthDialog::onLogin() {
 void AuthDialog::onRegister() {
     RegisterDialog reg(&m_db, this);
     if (reg.exec() == QDialog::Accepted) {
+        // После регистрации можно автоматически залогиниться
         m_loginEdit->setText(reg.getRegisteredLogin());
-        m_passwordEdit->clear();
+        m_passwordEdit->setText("");
     }
 }
