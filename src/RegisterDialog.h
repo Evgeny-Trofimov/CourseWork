@@ -5,6 +5,7 @@
 #include "Database.h"
 
 class QLineEdit;
+class QPushButton;
 
 class RegisterDialog : public QDialog {
     Q_OBJECT
@@ -24,4 +25,4 @@ private:
     QString m_registeredLogin;
 };
 
-#endif 
+#endif // REGISTERDIALOG_H
