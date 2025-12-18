@@ -1,9 +1,10 @@
-#include "RegisterDialog.h"
+#include <QLineEdit>
+#include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
 #include <QMessageBox>
+#include "RegisterDialog.h"
 
 RegisterDialog::RegisterDialog(Database* db, QWidget* parent)
     : QDialog(parent), m_db(db) {
@@ -11,6 +12,7 @@ RegisterDialog::RegisterDialog(Database* db, QWidget* parent)
     setFixedSize(300, 220);
 
     auto layout = new QVBoxLayout(this);
+
     layout->addWidget(new QLabel("Логин:"));
     m_loginEdit = new QLineEdit;
     layout->addWidget(m_loginEdit);
