@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 #include <sqlite3.h>
-#include "User.h"
+
+using namespace std;
 
 struct ThreatType {
     int id;
@@ -39,6 +40,21 @@ struct LogEntry {
     string details;
     string user_login;
     LogEntry() : id(0), user_id(0) {}
+};
+
+class User {
+private:
+    int m_id;
+    string m_login;
+    string m_role;
+public:
+    User() : m_id(0) {}
+    User(int id, const string& login, const string& role)
+        : m_id(id), m_login(login), m_role(role) {}
+    int getId() const { return m_id; }
+    string getLogin() const { return m_login; }
+    string getRole() const { return m_role; }
+    bool isAdmin() const { return m_role == "admin"; }
 };
 
 class Database {
@@ -83,5 +99,4 @@ private:
     bool executeSQLWithCallback(const string &sql, int (*callback)(void*, int, char**, char**), void* data);
     void initReferenceData();
 };
-
 #endif
