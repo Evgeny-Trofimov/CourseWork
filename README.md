@@ -21,4 +21,4 @@ xhost +local:root
 docker build -t threat_db .
 
 # Запуск GUI-приложения
-docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix threat_db
+docker run -it --name threat_container -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix threat_db
