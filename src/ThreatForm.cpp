@@ -1,4 +1,7 @@
 #include "ThreatForm.h"
+#include <QLineEdit>
+#include <QComboBox>
+#include <QTextEdit>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -11,6 +14,7 @@ ThreatForm::ThreatForm(Database* db, QWidget* parent)
     resize(400, 300);
 
     auto layout = new QVBoxLayout(this);
+
     layout->addWidget(new QLabel("Название:"));
     m_nameEdit = new QLineEdit;
     layout->addWidget(m_nameEdit);
