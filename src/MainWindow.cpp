@@ -1,12 +1,13 @@
 #include "MainWindow.h"
-#include "ThreatForm.h"
 #include <QTableView>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QToolBar>
 #include <QMessageBox>
 #include <QStandardItemModel>
+#include <QStandardItem>
 #include <QHeaderView>
+#include <QApplication>  
 
 MainWindow::MainWindow(const User& user, QWidget *parent)
     : QMainWindow(parent), m_user(user) {
@@ -27,9 +28,10 @@ void MainWindow::setupUI() {
     m_tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     layout->addWidget(m_tableView);
 
+    // Тулбар
     auto toolbar = addToolBar("Actions");
-    toolbar->addAction("Добавить", this, &MainWindow::addThreat);
-    toolbar->addAction("Удалить", this, &MainWindow::deleteThreat);
+    toolbar->addAction("Добавить угрозу", this, &MainWindow::addThreat);
+    toolbar->addAction("Удалить угрозу", this, &MainWindow::deleteThreat);
     toolbar->addSeparator();
     toolbar->addAction("Статистика", this, &MainWindow::showStats);
     toolbar->addAction("Мои логи", this, &MainWindow::showMyLogs);
@@ -45,6 +47,16 @@ void MainWindow::setupUI() {
 
 void MainWindow::refreshTable() {
     auto threats = m_db.getAllThreats();
+    m_model = new QSqlTableModel(this);
+    m_model->setTable("threats");
+    m_model->select();
+
+    // Вручную заполним модель (проще, чем QSqlQueryModel)
+    if (m_model->rowCount() == 0) {
+        // Пока оставим таблицу пустой — заполним вручную
+    }
+
+    // Создадим собственную модель
     auto model = new QStandardItemModel(this);
     model->setHorizontalHeaderLabels({"ID", "Название", "Тип", "Риск", "Описание", "Дата"});
 
