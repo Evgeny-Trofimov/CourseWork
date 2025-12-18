@@ -1,22 +1,26 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Установка всех зависимостей
 RUN apt-get update && apt-get install -y \
-    cmake g++ make qt6-base-dev libsqlite3-dev libgl1 x11-apps \
+    cmake g++ git make \
+    qt6-base-dev libsqlite3-dev libssl-dev \
+    libgl1 libegl1 \
+    libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev \
+    x11-apps \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY . .
+RUN mkdir -p /app/data
 
-RUN mkdir build && cd build \
-    && cmake .. \
-    && make -j$(nproc)
+# Сборка
+RUN mkdir build && cd build && cmake .. && make -j$(nproc)
 
+# Запуск
 CMD if [ -z "$DISPLAY" ]; then \
-        echo "Ошибка: Переменная DISPLAY не установлена."; \
-        echo "Запустите так:"; \
-        echo "  xhost +local:root"; \
-        echo "  docker run -it --rm -e DISPLAY=\$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix threat_db"; \
+        echo "Ошибка: запустите с -e DISPLAY и томом X11"; \
         exit 1; \
     else \
         /app/build/threat_db; \
