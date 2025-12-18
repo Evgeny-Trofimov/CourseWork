@@ -2,7 +2,6 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Установка всех зависимостей
 RUN apt-get update && apt-get install -y \
     cmake g++ git make \
     qt6-base-dev libsqlite3-dev libssl-dev \
@@ -15,13 +14,11 @@ WORKDIR /app
 COPY . .
 RUN mkdir -p /app/data
 
-# Сборка
-RUN mkdir build && cd build && cmake .. && make -j$(nproc)
+# Собираем в подкаталоге, но копируем бинарь в текущую директорию (/app)
+RUN mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j$(nproc) && \
+    mv threat_db /app/
 
-# Запуск
-CMD if [ -z "$DISPLAY" ]; then \
-        echo "Ошибка: запустите с -e DISPLAY и томом X11"; \
-        exit 1; \
-    else \
-        /app/build/threat_db; \
-    fi
+CMD ./threat_db
