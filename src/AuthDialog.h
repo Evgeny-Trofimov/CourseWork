@@ -2,9 +2,13 @@
 #define AUTHDIALOG_H
 
 #include <QDialog>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QMessageBox>
 #include "Database.h"
-
-class QLineEdit;
 
 class AuthDialog : public QDialog {
     Q_OBJECT
@@ -24,4 +28,4 @@ private:
     Database m_db;
 };
 
-#endif
+#endif 
